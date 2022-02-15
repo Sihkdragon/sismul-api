@@ -17,7 +17,7 @@ class SiswaFactory extends Factory
     public function definition()
     {
         return [
-            'nisn' => $this->faker->numerify('##########'),
+            'nik' => $this->faker->numerify('##################'),
             'nama' => $this->faker->name(),
             'kelamin' => $this->faker->randomElement(['laki-laki', 'perempuan']),
             'tanggal_lahir' => $this->faker->date('Y-m-d')

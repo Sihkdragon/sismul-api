@@ -17,7 +17,9 @@ return new class extends Migration
         Schema::create('absens', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Siswa::class);
-            $table->timestamp('diabsen', $precision = 0);
+            $table->string('nama');
+            $table->date('diabsen', $precision = 0);
+            $table->time('jam', $precision = 0);
             $table->timestamps();
         });
     }

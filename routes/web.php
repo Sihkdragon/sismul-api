@@ -17,7 +17,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-
+// all => data nik, nama ,  last absen
 Route::get('siswa', [SiswaController::class, 'show']);
-// Route::get('absent', [SiswaController::class, 'showabsen']);
+
+//absen hari ini => nik nama
 Route::get('absen', [SiswaController::class, 'absen']);
+Route::get('todaydata', [SiswaController::class, 'todaydata']);
+Route::get('alldata', [SiswaController::class, 'alldata']);
+Route::get('homedata', [SiswaController::class, 'homedata']);
