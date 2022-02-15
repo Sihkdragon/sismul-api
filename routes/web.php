@@ -21,6 +21,7 @@ Route::get('/', function () {
 Route::get('siswa', [SiswaController::class, 'show']);
 
 //absen hari ini => nik nama
+// Route::post('absenpost', [SiswaController::class, 'absenpost']);
 Route::get('absen', [SiswaController::class, 'absen']);
 Route::get('todaydata', [SiswaController::class, 'todaydata']);
 Route::get('alldata', [SiswaController::class, 'alldata']);

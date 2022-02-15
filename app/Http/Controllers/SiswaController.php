@@ -13,22 +13,30 @@ class SiswaController extends Controller
         $siswa = DB::table('siswas')->select('nik', 'nama', 'kelamin', 'tanggal_lahir')->get();
         return $siswa;
     }
+    public function absenpost(Request $request)
+    {
+        $siswa = DB::table('siswas')->select('nik', 'nama', 'kelamin', 'tanggal_lahir')->where('nik', $request->header('nik'))->first();
+        DB::table('absens')->insert([
+            'siswa_id' => $siswa->nik,
+            'nama' => $siswa->nama,
+            'diabsen' => today('GMT+7'),
+            'jam' => now('GMT+7'),
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        // return $request->header('nik');
+    }
     public function absen(Request $request)
     {
         $siswa = DB::table('siswas')->select('nik', 'nama', 'kelamin', 'tanggal_lahir')->where('nik', $request->header('nik'))->first();
         DB::table('absens')->insert([
             'siswa_id' => $siswa->nik,
-            'name' => $siswa->nik,
-            'diabsen' => today(),
+            'nama' => $siswa->nama,
+            'diabsen' => today('GMT+7'),
             'jam' => now('GMT+7'),
             'created_at' => now(),
             'updated_at' => now()
         ]);
-
-
-        // $absen = DB::table('absens')->select('nisn', 'nama', 'kelamin', 'tanggal_lahir')->get();
-        // return $siswa['nisn'];
-        // return $absen;
     }
     public function todaydata()
     {
@@ -57,13 +65,13 @@ class SiswaController extends Controller
     {
         $data = DB::table('absens')
             ->join('siswas', 'absens.siswa_id', '=', 'siswas.nik')
-            ->select('absens.id', 'absens.siswa_id', 'siswas.nama')->orderBy('absens.jam', 'desc')
+            ->select('absens.id', 'absens.siswa_id', 'siswas.nama')->orderBy('absens.created_at', 'desc')
             ->get();
         return $data;
     }
 }
 
 
-// add artisan serve custom php artisan serve --host 192.168.18.18 --port 8000
+// add artisan serve custom php artisan serve --host 192.168.41.39 --port 8000
 
-// postman example url http://192.168.18.18:8000/homedata
+// postman example url http://192.168.41.39:8000/homedata
