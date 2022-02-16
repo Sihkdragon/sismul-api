@@ -24,25 +24,16 @@ class SiswaController extends Controller
             'created_at' => now(),
             'updated_at' => now()
         ]);
-        // return $request->header('nik');
-    }
-    public function absen(Request $request)
-    {
-        $siswa = DB::table('siswas')->select('nik', 'nama', 'kelamin', 'tanggal_lahir')->where('nik', $request->header('nik'))->first();
-        DB::table('absens')->insert([
-            'siswa_id' => $siswa->nik,
-            'nama' => $siswa->nama,
-            'diabsen' => today('GMT+7'),
-            'jam' => now('GMT+7'),
-            'created_at' => now(),
-            'updated_at' => now()
+        return response()->json([
+          'status' => 'Ok',
         ]);
-    }
+        // return $request->header('nik');
+      }
     public function todaydata()
     {
         $data = DB::table('absens')
             ->join('siswas', 'absens.siswa_id', '=', 'siswas.nik')
-            ->select('absens.siswa_id', 'siswas.nama')->where('absens.diabsen', today())
+            ->select('absens.id','absens.siswa_id', 'siswas.nama')->where('absens.diabsen', today())
             ->get();
         return $data;
     }
@@ -73,5 +64,6 @@ class SiswaController extends Controller
 
 
 // add artisan serve custom php artisan serve --host 192.168.41.39 --port 8000
+// add artisan serve custom php artisan serve --host 192.168.18.18 --port 8000
 
 // postman example url http://192.168.41.39:8000/homedata
