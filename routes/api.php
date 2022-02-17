@@ -21,3 +21,4 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::post('absenpost', [SiswaController::class, 'absenpost']);
+Route::post('searchtodaydata', [SiswaController::class, 'searchtodaydata']);

@@ -25,15 +25,24 @@ class SiswaController extends Controller
             'updated_at' => now()
         ]);
         return response()->json([
-          'status' => 'Ok',
+            'status' => 'Ok',
         ]);
         // return $request->header('nik');
-      }
+    }
     public function todaydata()
     {
         $data = DB::table('absens')
             ->join('siswas', 'absens.siswa_id', '=', 'siswas.nik')
-            ->select('absens.id','absens.siswa_id', 'siswas.nama')->where('absens.diabsen', today())
+            ->select('absens.id', 'absens.siswa_id', 'siswas.nama')->where('absens.diabsen', today())
+            ->get();
+        return $data;
+    }
+    public function searchtodaydata(Request $request)
+    {
+        $Search = $request->header('query');
+        $data = DB::table('absens')
+            ->join('siswas', 'absens.siswa_id', '=', 'siswas.nik')
+            ->select('absens.id', 'absens.siswa_id', 'siswas.nama')->where('absens.siswa_id', 'LIKE', '%' . $Search . '%')
             ->get();
         return $data;
     }
